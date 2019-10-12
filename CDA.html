@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>SmarterBoard</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+   <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+    <link rel="shortcut icon" href="newfav.ico">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+      .slideanim {visibility:hidden;}
+.slide {
+    /* The name of the animation */
+    animation-name: slide;
+    -webkit-animation-name: slide; 
+    /* The duration of the animation */
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+    /* Make the element visible */
+    visibility: visible; 
+}
+
+/* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    } 
+}
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    } 
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
+    	/*body{
+    		font-family: 'Concert One', cursive;
+      		line-height: 1.8;
+      		color: #ffffff;
+      		
+    	}*/
+      body {background-color: #262626;
+      }
+    	p{
+    		font-size: 25px;
+        color: #000000;
+
+    	}
+
+      .carousel-control.right, .carousel-control.left {
+        background-image: none;
+        color: #ffffff;
+        margin-left: 0px;
+
+      }
+    	.navbar{
+    		font-size: 20px;
+    		border: 0px;
+    		margin-bottom: 0;
+        opacity:0.95;
+    	}
+      .navbar-nav li a:hover, .navbar-nav li.active a {
+        color: #5C6BC0 !important;
+        !important;
+      }
+
+      .navbar-brand{
+        font-size: 20px;
+
+      }
+    	.well{
+    		background-color: #546E7A;
+        width: %;
+    	}
+
+      .wellsize1{
+        background-color: #546E7A;
+        width: 80%;
+        height: 40%;
+        border-radius: 15px;
+      }
+      .wellsize2{
+        background-color: #546E7A;
+        width: 50%;
+        border-radius: 15px;
+        border-width: medium;
+      }
+      .wellsize3{
+        width: 20%;
+      }
+    	.jumbotron {
+    		background-color: #5C6BC0;
+    		margin-top: 0;
+        margin-bottom: 0;
+        padding: 70px 
+    	}
+    	.btn{
+    		background-color: #546E7A;
+    		color: #ffffff;
+    	}
+    	.container-fluid{
+    
+        padding: 110px 30px;
+          
+    	}
+
+              }
+        h2{
+          font-weight: bold;
+        }
+        h1{
+          font-weight: bold;
+          color: #ffffff;
+
+        }
+        
+       .car{
+          margin-bottom: -70px;
+       }
+
+       .jk{
+          color: #546E7A ;
+       }
+    	  .bg-1 {
+       		
+      	  background-color: #FFFFFF;
+
+
+
+    </style>
+ 
+<body data-spy="scroll" data-target=".navbar" data-offset="50"> 
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MyCPA</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#BloodData">Blood Data</a></li>
+        <li><a href="#Nutrients">Nutrients/Biochemistry Data</a></li>
+        <li><a href="#Education">Blank</a></li>
+        <li><a href="#ourteam">Blank</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+
+      <div id="my-slider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators car">
+              <li data-target="#my-slider" data-slide-to="0" class="active"></li>
+              <li data-target="#my-slider" data-slide-to="1"></li>
+            </ol>
+
+        <div class="carousel-inner">
+          <div class="item active">
+
+<div class="container" >
+      <div class="row">
+        <div class="col-md-12 py-1">
+            <center><h1>Blood Analytics</h1></center>
+        </div>
+      </div>
+</div>
+
+<div class="container well well-lg bg-1 wellsize1" id = "BloodData">
+    
+
+    <div class="row my-2">
+
+        <div class="col-md-6 py-1 well well-lg bg-1 wellsize2">
+              <div class="card">
+                  <div class="card-body">
+                      <canvas id="chLine"></canvas>
+                  </div>
+              </div>
+        </div>
+        <div class="col-md-6 py-1 bg-1 wellsize2">
+            <h2><center>Blood Pressure</center></h2>
+            <br>
+            <p>Blood pressure is usually expressed in terms of the systolic pressure (maximum during one heartbeat) over diastolic pressure (minimum in between two heartbeats) and is measured in millimeters of mercury (mmHg), above the surrounding atmospheric pressure. (copied and paste from wiki, make shorter)</p>
+        </div>
+
+      </div>
+    
+
+        <div class="row my-2">
+        <div class="col-md-3 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id=""></canvas> 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chDonut1"></canvas> 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 py-1 well well-lg bg-1 wellsize2">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chBar1"></canvas>
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+    
+                  <a class="left carousel-control gl1" href="#my-slider" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </a>
+
+              <a class="right carousel-control" href="#my-slider" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right gl2" aria-hidden="true"></span>
+              </a>
+
+</div>
+</div>
+
+<br> 
+<br> 
+<br> 
+<br> 
+
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-12 py-1">
+                <center><h1>Nutrient and Biochemistry Analytics</h1></center>
+            </div>
+          </div>
+        </div>
+
+      <div id="my-slider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators car">
+          <li data-target="#my-slider" data-slide-to="0" class="active"></li>
+          <li data-target="#my-slider" data-slide-to="1"></li>
+        </ol>
+
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="container well well-lg bg-1 wellsize1" id="Nutrients">
+              
+              <div class="row my-2">
+                <div class="col-md-6 py-1 well well-lg bg-1 wellsize2">
+                  <div class="card">
+                    <div class="card-body">
+                      <canvas id="chLine"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 py-1 well well-lg bg-1 wellsize2">
+                  <div class="card-body">
+                    <!--<canvas id="chLine"></canvas>-->
+                  </div>
+                </div>
+              </div>
+          
+
+              <div class="row my-2">
+                <div class="col-md-6 py-1">
+                  <div class="card">
+                    <div class="card-body">
+                      <!--<canvas id="chLine"></canvas>-->
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6 py-1 well well-lg bg-1 wellsize2">
+                  <div class="card">
+                    <div class="card-body">
+                      <canvas id="chBar2"></canvas>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+       </div> 
+          <div class="carousel-item">
+            <img class="d-block w-100" src="..." alt="Second slide">
+          </div>
+        
+      </div>
+    
+                  <a class="left carousel-control gl1" href="#my-slider" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </a>
+
+              <a class="right carousel-control" href="#my-slider" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right gl2" aria-hidden="true"></span>
+              </a>
+    
+
+</div>
+
+
+
+
+
+
+
+    <!--<div class="row py-2">
+        <div class="col-md-6 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chDonut1"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chBar2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+<!--
+	<div class="jumbotron text-center" id="jumbo">
+  		<h1><strong> Smarter Board (Pen) </strong></h1>
+  		<p><i> An Improvised Interactive Whiteboard Pen with Little Bits Implementation </i></p> 
+      <br><br>
+  		<img src="whiteboard.png" class="img-circle" alt="Portrait" width="200" height="200">
+      <br> <br> <br> <br> <br>
+  <p> Inspired by Johnny Chung Lee and the Wiimote Project  </p>
+
+
+
+<div id="demo" class="collapse">
+Lorem ipsum dolor text....
+</div>
+  </div>
+
+  <div class="container-fluid bg-4 text-center">
+  
+  <h2> Developed at the University of Pittsburgh Swanson School of Engineering in <u>The Art of Making: An Introduction to Hands-On System Design and Engineering </u> </h2>
+ 
+  </div>
+  	
+    <div class="container-fluid bg-3 text-center" id="Background">
+
+      <div class="row">
+        <div class="col">
+      <h1> <strong> HOW IT WORKS </strong> </h1>      
+
+          
+
+            
+          <br>
+          <p> The Smarter Board Pen is a makeshift interactive whiteboard pen that works in conjunction with the infared camera of a Wiimote. The infared camera on the front of the Wiimote is capable of tracking up to four infared leds and output the motion on a computer device. With the code provided by Johnny Chung Lee and the smart board calibration software, <i>Pentabulous</i>, the Smarter Board Pen becomes a cheap alternative for individuals of all age groups. </p> <br>
+
+          <br> 
+          <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-dialog modal-lg">
+          <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3 class="modal-title"> Smarter Board Pen: In Use </h3>
+          </div>
+          <div class="modal-body">
+            <video width="840" height="630" controls>
+              <source src="proj.mp4" type="video/mp4">  
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+          </div>
+
+        </div>
+
+
+        </div>
+
+      </div>
+
+
+          <div class="col">
+
+             <img src="pro.jpg" class="img-circle" alt="pic" width="300" height="300" data-toggle="collapse" data-target="#sp">
+
+         </div>
+
+         <br>
+          
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> DEMONSTRATION </button>
+
+  </div>
+    </div>
+
+
+  	<div class="container-fluid bg-1 text-center" id="Portfolio">
+  		
+      <div id="my-slider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators car">
+              <li data-target="#my-slider" data-slide-to="0" class="active"></li>
+              <li data-target="#my-slider" data-slide-to="1"></li>
+            </ol>
+
+        <div class="carousel-inner">
+          <div class="item active">
+
+  			<h1> <strong> LITTLE BITS PIECES AND ADD-ONS </strong> </h1>
+        <h3>  Add-Ons and Power </h3>
+        <br> <br>
+  				<div class="row slideanim">
+
+
+  					<div class="col-xs-3">
+  						<h3> <strong> Wiimote </strong> </h3>
+              <br>
+              <img src="wii.jpg"  class="img-circle" alt="Bootstrap" width="200" height="200">
+  						
+  						</div>
+
+  						<div class="col-xs-3">
+  						<h3> <strong> Expo Marker </strong> </h3>
+              <br>
+                <img src="expo.jpg" class="img-circle" alt="Arduino" width="200" height="200">
+  						
+  						</div>
+
+  						<div class="col-xs-3">
+  						<h3> <strong> Power Bit </strong> </h3>
+              <br>
+              <img src="power.jpg"  class="img-circle" alt="Android" width="200" height="200" >
+  							
+  						</div>
+
+                <div class="col-xs-3">
+              <h3> <strong> Battery </strong> </h3>
+              <br>
+              <img src="batt.jpg" class="img-circle" alt="TensorFlow" width="200" height="200" >
+              </div>
+              </div>
+              </div>
+              
+             <div class="item">
+
+        <h1> <strong> LITTLE BITS PIECES AND ADD-ONS </strong> </h1>
+        <h3> Outputs and Inputs </h3>
+        <br> <br>
+          <div class="row slideanim">
+
+
+            <div class="col-xs-3 slideanim">
+              <h3> <strong> Infared LED </strong> </h3>
+              <br>
+              <img src="irled.jpg" class="img-circle" alt="Bootstrap" width="200" height="200">
+              
+              </div>
+
+              <div class="col-xs-3 slideanim">
+              <h3> <strong> LED </strong> </h3>
+              <br>
+                <img src="led.jpg" class="img-circle" alt="Arduino" width="200" height="200">
+              
+              </div>
+
+              <div class="col-xs-3 slideanim">
+              <h3> <strong> Button </strong> </h3>
+              <br>
+              <img src="button.jpg"  class="img-circle" alt="Android" width="200" height="200" >
+                
+              </div>
+
+                <div class="col-xs-3 slideanim">
+              <h3> <strong> Wires </strong> </h3>
+              <br>
+              <img src="wire.jpg" class="img-circle" alt="TensorFlow" width="200" height="200" >
+              </div>
+              </div>
+              </div>
+              
+      </div>
+
+
+
+
+              <a class="left carousel-control gl1" href="#my-slider" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </a>
+
+              <a class="right carousel-control" href="#my-slider" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right gl2" aria-hidden="true"></span>
+              </a>
+
+               
+             </div>
+          </div>
+           
+  	</div>
+
+  
+
+    <div class="container-fluid bg-2 " id="Education">
+    
+      <h1 class="text-center"><strong> OUR VISION</strong></h2>
+      <h3 class="text-center"> Applications for a wide range of individuals </h3>
+      <br><br>
+        <div class="row slideanim">
+          <div class="col-xs-6 text-center">
+            <img src="jin.jpg" class="img-circle" alt="Portrait" width="340" height="280">
+          </div>
+          <div class="col-xs-5">
+            <h2> Collaborative Whiteboard Experience with Computer Autosave </h2>
+                <h4>  With the capability of the Wiimote to track up to 4 infared pens, people can utilize this product to collaborate and have it seamlessly save on a computer. Some of these applications include projects, homework assignments, brainstorming, and other tasks that involve teamwork. The portable nature of the product and the Wiimote allow users to relocate to any classroom, dorm, or room with open space. </h4>
+          </div>
+          </div>
+          <br> <br>
+          <div class="row slideanim">
+          <div class="col-xs-6 text-center">
+            <img src="notes.jpg" class="img-circle" alt="Portrait" width="340" height="280">
+          </div>
+          <div class="col-xs-5">
+            <h2> Notes Transfer for Educators and Students </h2>
+                <h4>  A small but rather prevalent issue that arises for students and educators is not having the ability to access crucial lecture notes written on a whiteboard. These notes are often erased accidentally or require students to either rewrite or take pictures of the notes. By using the Smarter Board Pen, both students and professors benefit from the removal of this issue. </h4>
+          </div>
+          
+          
+          </div>
+    </div>
+
+    <div class="container-fluid text-center bg-6" id="ourteam">
+        <h1> <strong> OUR TEAM </strong> </h1>
+        <br><br>
+          
+          <div class="row slideanim">
+           <div class="col-xs-3">
+            <img src="new2.jpg" class="img-circle" alt="Elon Musk" width="190" height="190" data-toggle="collapse" data-target="#em">
+            <p><strong> Calvin Yu </strong></p>
+            <h3> <i> Computer Engineering </i> </h3>
+             <div id="em" class="collapse">
+              <p> </p>
+            </div>
+            </div>
+            
+            <div class="col-xs-3">
+            <img src="mor.jpg" class="img-circle" alt="pic" width="190" height="190" data-toggle="collapse" data-target="#sj">
+            <p><strong> Mor Shimshi </strong></p>
+            <h3> <i> Chemical Engineering </i> </h3>
+            <div id="sj" class="collapse">
+              <p> </p>
+            </div>
+            </div>
+            
+            <div class="col-xs-3">
+            <img src="sara.jpg" class="img-circle" alt="pic" width="190" height="190" data-toggle="collapse" data-target="#sp">
+            <p><strong> Sara Kron </strong></p>
+            <h3> <i> Bioengineering</i> </h3>
+            <div id="sp" class="collapse">
+              <p> </p>
+            </div>
+            </div>
+
+            <div class="col-xs-3">
+            <img src="chris.jpg" class="img-circle" alt="pic" width="190" height="190" data-toggle="collapse" data-target="#sp">
+            <p><strong> Chris Turocy </strong></p>
+            <h3> <i> Mechanical Engineering</i> </h3>
+            <div id="sp" class="collapse">
+              <p> </p>
+            </div>
+            </div>
+
+            </div>
+            </div>
+
+    </div>
+
+
+
+
+<footer class="container-fluid bg-5 text-center">
+<a href="#jumbo" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up jk"></span>
+  </a>
+  <p>Website Made by the Smarter Board Team </p>
+</footer>-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+
+
+<script>
+  /* chart.js chart examples */
+
+// chart colors
+var colors = ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d'];
+
+/* large line chart */
+var chLine = document.getElementById("chLine");
+var chartData = {
+  labels: ["S", "M", "T", "W", "T", "F", "S"],
+  datasets: [{
+    data: [589, 445, 483, 503, 689, 692, 634],
+    backgroundColor: 'transparent',
+    borderColor: colors[0],
+    borderWidth: 4,
+    pointBackgroundColor: colors[0]
+  },
+  {
+    data: [639, 465, 493, 478, 589, 632, 674],
+    backgroundColor: colors[3],
+    borderColor: colors[1],
+    borderWidth: 4,
+    pointBackgroundColor: colors[1]
+  }]
+};
+if (chLine) {
+  new Chart(chLine, {
+  type: 'line',
+  data: chartData,
+  options: {
+    scales: {
+      xAxes: [{
+        ticks: {
+          beginAtZero: false
+        }
+      }]
+    },
+    title: {
+      display: true,
+      text: 'Blood Pressure History',
+      fontSize: 14,
+      fontColor: `#000000`
+    },
+    legend: {
+      display: false
+    },
+    responsive: true
+  }
+  });
+}
+
+var chLine2 = document.getElementById("chLine2");
+var chartData = {
+  labels: ["S", "M", "T", "W", "T", "F", "S"],
+  datasets: [{
+    data: [589, 445, 483, 503, 689, 692, 634],
+    backgroundColor: 'transparent',
+    borderColor: colors[0],
+    borderWidth: 4,
+    pointBackgroundColor: colors[0]
+  },
+  {
+    data: [639, 465, 493, 478, 589, 632, 674],
+    backgroundColor: colors[3],
+    borderColor: colors[1],
+    borderWidth: 4,
+    pointBackgroundColor: colors[1]
+  }]
+};
+if (chLine2) {
+  new Chart(chLine2, {
+  type: 'line',
+  data: chartData,
+  options: {
+    scales: {
+      xAxes: [{
+        ticks: {
+          beginAtZero: false
+        }
+      }]
+    },
+    legend: {
+      display: false
+    },
+    responsive: true
+  }
+  });
+}
+
+/* large pie/donut chart */
+var chPie = document.getElementById("chPie");
+if (chPie) {
+  new Chart(chPie, {
+    type: 'pie',
+    data: {
+      labels: ['Desktop', 'Phone', 'Tablet', 'Unknown'],
+      datasets: [
+        {
+          backgroundColor: [colors[1],colors[0],colors[2],colors[5]],
+          borderWidth: 0,
+          data: [50, 40, 15, 5]
+        }
+      ]
+    },
+    plugins: [{
+      beforeDraw: function(chart) {
+        var width = chart.chart.width,
+            height = chart.chart.height,
+            ctx = chart.chart.ctx;
+        ctx.restore();
+        var fontSize = (height / 70).toFixed(2);
+        ctx.font = fontSize + "em sans-serif";
+        ctx.textBaseline = "middle";
+        var text = chart.config.data.datasets[0].data[0] + "%",
+            textX = Math.round((width - ctx.measureText(text).width) / 2),
+            textY = height / 2;
+        ctx.fillText(text, textX, textY);
+        ctx.save();
+      }
+    }],
+    options: {layout:{padding:0}, legend:{display:false}, cutoutPercentage: 80}
+  });
+}
+
+/* bar chart */
+var chBar = document.getElementById("chBar1");
+if (chBar) {
+  new Chart(chBar, {
+  type: 'bar',
+  data: {
+    labels: ["S", "M", "T", "W", "T", "F", "S"],
+    datasets: [{
+      data: [589, 445, 483, 503, 689, 692, 634],
+      backgroundColor: colors[0]
+    },
+    {
+      data: [639, 465, 493, 478, 589, 632, 674],
+      backgroundColor: colors[1]
+    }]
+  },
+  options: {
+    legend: {
+      display: false
+    },
+    title: {
+      display: true,
+      text: 'Demographic Comparison',
+      fontSize: 14,
+      fontColor: `#000000`
+    },
+    scales: {
+      xAxes: [{
+        barPercentage: 0.4,
+        categoryPercentage: 0.5
+      }]
+    }
+  }
+  });
+}
+
+var chBar2 = document.getElementById("chBar2");
+if (chBar2) {
+  new Chart(chBar2, {
+  type: 'bar',
+  data: {
+    labels: ["S", "M", "T", "W", "T", "F", "S"],
+    datasets: [{
+      data: [589, 445, 483, 503, 689, 692, 634],
+      backgroundColor: colors[0]
+    },
+    {
+      data: [639, 465, 493, 478, 589, 632, 674],
+      backgroundColor: colors[1]
+    }]
+  },
+  options: {
+    legend: {
+      display: false
+    },
+    title: {
+      display: true,
+      text: 'Demographic Comparison',
+      fontSize: 14,
+      fontColor: `#000000`
+    },  
+    scales: {
+      xAxes: [{
+        barPercentage: 0.4,
+        categoryPercentage: 0.5
+      }]
+    }
+  }
+  });
+}
+
+
+/* 3 line charts */
+var lineOptions = {
+    legend:{display:false},
+    tooltips:{interest:false,bodyFontSize:11,titleFontSize:11},
+    title: {
+      display: true,
+      text: 'Blood Pressure History'
+    },
+    scales:{
+        xAxes:[
+            {
+                ticks:{
+                    display:false
+                },
+                gridLines: {
+                    display:false,
+                    drawBorder:false
+                }
+            }
+        ],
+        yAxes:[{display:false}]
+    },
+    layout: {
+        padding: {
+            left: 6,
+            right: 6,
+            top: 4,
+            bottom: 6
+        }
+    }
+};
+
+var chLine1 = document.getElementById("chLine1");
+if (chLine1) {
+  new Chart(chLine1, {
+      type: 'line',
+      data: {
+          labels: ['Jan','Feb','Mar','Apr','May'],
+          datasets: [
+            {
+              backgroundColor:'#ffffff',
+              borderColor:'#ffffff',
+              data: [10, 11, 4, 11, 4],
+              fill: false
+            }
+          ]
+      },
+      options: lineOptions
+  });
+}
+var chLine2 = document.getElementById("chLine2");
+if (chLine2) {
+  new Chart(chLine2, {
+      type: 'line',
+      data: {
+          labels: ['A','B','C','D','E'],
+          datasets: [
+            {
+              backgroundColor:'#ffffff',
+              borderColor:'#ffffff',
+              data: [4, 5, 7, 13, 12],
+              fill: false
+            }
+          ]
+      },
+      options: lineOptions
+  });
+}
+
+var chLine3 = document.getElementById("chLine3");
+if (chLine3) {
+  new Chart(chLine3, {
+      type: 'line',
+      data: {
+          labels: ['Pos','Neg','Nue','Other','Unknown'],
+          datasets: [
+            {
+              backgroundColor:'#ffffff',
+              borderColor:'#ffffff',
+              data: [13, 15, 10, 9, 14],
+              fill: false
+            }
+          ]
+      },
+      options: lineOptions
+  });
+}
+
+/* 3 donut charts */
+var donutOptions = {
+  cutoutPercentage: 85, 
+  legend: {position:'bottom', padding:5, labels: {pointStyle:'circle', usePointStyle:true}}
+};
+
+// donut 1
+var chDonutData1 = {
+    labels: ['Bootstrap', 'Popper', 'Other'],
+    datasets: [
+      {
+        backgroundColor: colors.slice(0,3),
+        borderWidth: 0,
+        data: [74, 11, 40]
+      }
+    ]
+};
+
+var chDonut1 = document.getElementById("chDonut1");
+if (chDonut1) {
+  new Chart(chDonut1, {
+      type: 'pie',
+      data: chDonutData1,
+      options: donutOptions
+  });
+}
+
+</script>
+
+
+
+<!--
+<script>
+$(document).ready(function(){
+
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#jumbo']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+  
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+$(window).scroll(function() {
+  $(".slideanim").each(function(){
+    var pos = $(this).offset().top;
+
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide");
+    }
+  });
+});
+</script>-->
+
+
+</body>
+
+
+
+</html>
